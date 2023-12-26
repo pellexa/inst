@@ -2,7 +2,7 @@
 import './icon.css'
 
 export default {
-  name: 'IconCart',
+  name: 'IconPlusCircle',
   props: {
     size: {
       type: Number,
@@ -14,8 +14,9 @@ export default {
 
 <template>
   <svg
-    viewBox="0 0 24 24"
+    class="icon"
     xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
     :width="size"
     :height="size"
   >
