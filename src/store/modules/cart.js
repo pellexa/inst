@@ -14,22 +14,21 @@ export default {
     ],
   },
   mutations: {
-    ADD_PRODUCT: (state, { id, image, title, price, quantity }) => {
-      // TODO: Реализовать мутацию добавления товара
-      console.log(state.products)
-      console.log(id, image, title, price, quantity)
+    ADD_PRODUCT: (state, { id, image, title, price, quantity, count }) => {
+      state.products.push({ id, image, title, price, quantity, count })
     },
     REMOVE_PRODUCT: (state, id) => {
-      const index = state.products.findIndex((item) => item.id === id)
+      const index = state.products.findIndex((i) => i.id === id)
       state.products.splice(index, 1)
     },
     SET_COUNT_PRODUCT: (state, { id, count }) => {
-      const index = state.products.findIndex((item) => item.id === id)
+      const index = state.products.findIndex((i) => i.id === id)
       state.products[index].count += count
     },
   },
   getters: {
     getProducts: (state) => state.products,
+    getIsInCart: (state) => (id) => state.products.some((i) => i.id === id),
   },
   actions: {
     addProduct({ commit }, { id, image, title, price, quantity }) {

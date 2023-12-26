@@ -62,7 +62,7 @@ export default {
     <div class="cart-item__actions">
       <IconButton
         :color="count === 1 ? 'shade' : 'primary'"
-        @click="setCountProduct({ id, count: count === 1 ? 0 : -1 })"
+        @click="setCountProduct({ id, count: count <= 1 ? 0 : -1 })"
       >
         <IconMinusCircle />
       </IconButton>
@@ -71,7 +71,7 @@ export default {
 
       <IconButton
         :color="count === quantity ? 'shade' : 'primary'"
-        @click="setCountProduct({ id, count: count === quantity ? 0 : 1 })"
+        @click="setCountProduct({ id, count: count >= quantity ? 0 : 1 })"
       >
         <IconPlusCircle />
       </IconButton>
