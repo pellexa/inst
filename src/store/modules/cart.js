@@ -20,14 +20,12 @@ export default {
       console.log(id, image, title, price, quantity)
     },
     REMOVE_PRODUCT: (state, id) => {
-      // TODO: Реализовать мутацию удаления товара
-      console.log(state.products)
-      console.log(id)
+      const index = state.products.findIndex((item) => item.id === id)
+      state.products.splice(index, 1)
     },
     SET_COUNT_PRODUCT: (state, { id, count }) => {
-      // TODO: Реализовать мутацию изменения количества товара
-      console.log(state.products)
-      console.log(id, count)
+      const index = state.products.findIndex((item) => item.id === id)
+      state.products[index].count += count
     },
   },
   getters: {
