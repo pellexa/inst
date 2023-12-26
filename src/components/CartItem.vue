@@ -3,8 +3,9 @@ import { mapActions } from 'vuex'
 import ThePrice from '@/components/ThePrice.vue'
 import IconButton from '@/components/IconButton.vue'
 import IconTrash from '@/components/icons/IconTrash.vue'
-import IconMinusCircle from './icons/IconMinusCircle.vue'
-import IconPlusCircle from './icons/IconPlusCircle.vue'
+import IconMinusCircle from '@/components/icons/IconMinusCircle.vue'
+import IconPlusCircle from '@/components/icons/IconPlusCircle.vue'
+import FavoriteButton from '@/components/FavoriteButton.vue'
 
 export default {
   name: 'CartItem',
@@ -14,6 +15,7 @@ export default {
     IconTrash,
     IconMinusCircle,
     IconPlusCircle,
+    FavoriteButton,
   },
   props: {
     id: {
@@ -59,7 +61,7 @@ export default {
     <div class="cart-item__price">
       <ThePrice :amount="price" />
     </div>
-    <div class="cart-item__actions">
+    <div class="cart-item__count">
       <IconButton
         :color="count === 1 ? 'shade' : 'primary'"
         @click="setCountProduct({ id, count: count <= 1 ? 0 : -1 })"
@@ -75,18 +77,27 @@ export default {
       >
         <IconPlusCircle />
       </IconButton>
-
-      <IconButton color="primary" @click="removeProduct(id)">
-        <IconTrash />
-      </IconButton>
     </div>
+    <FavoriteButton
+      class="cart-item__favorite"
+      :id="id"
+      :image="image"
+      :title="title"
+    />
+    <IconButton
+      class="cart-item__trash"
+      color="primary"
+      @click="removeProduct(id)"
+    >
+      <IconTrash />
+    </IconButton>
   </div>
 </template>
 
 <style>
 .cart-item {
   display: grid;
-  grid-template-columns: 64px repeat(2, 1fr);
+  grid-template-columns: 64px repeat(2, 1fr) 24px;
   grid-template-rows: repeat(2, min-content);
   gap: 8px 24px;
 }
@@ -105,10 +116,22 @@ export default {
   grid-area: 2 / 2 / 3 / 3;
 }
 
-.cart-item__actions {
+.cart-item__count {
   grid-area: 2 / 3 / 3 / 4;
   display: flex;
   justify-content: flex-end;
-  column-gap: var(--gap);
+  gap: 4px;
+}
+
+.cart-item__favorite {
+  grid-area: 1 / 4 / 2 / 5;
+  display: flex;
+  align-items: start;
+}
+
+.cart-item__trash {
+  grid-area: 2 / 4 / 3 / 5;
+  display: flex;
+  align-items: start;
 }
 </style>
