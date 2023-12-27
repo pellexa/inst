@@ -1,7 +1,7 @@
 <script>
 import ThePrice from '@/components/ThePrice.vue'
 import FavoriteButton from '@/components/FavoriteButton.vue'
-import CartButton from './CartButton.vue'
+import CartButton from '@/components/CartButton.vue'
 
 export default {
   name: 'CatalogItem',
