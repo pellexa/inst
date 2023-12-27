@@ -1,13 +1,15 @@
 <script>
 import { mapGetters } from 'vuex'
-import CartItem from './CartItem.vue'
-import TheEmpty from './TheEmpty.vue'
+import CartItem from '@/components/CartItem.vue'
+import TheEmpty from '@/components/TheEmpty.vue'
+import TheCheckout from '@/components/TheCheckout.vue'
 
 export default {
   name: 'TheCart',
   components: {
     CartItem,
     TheEmpty,
+    TheCheckout,
   },
   computed: {
     ...mapGetters({
@@ -30,6 +32,7 @@ export default {
           :count="item.count"
         />
       </div>
+      <TheCheckout />
     </template>
     <template v-else>
       <div class="cart__empty">
