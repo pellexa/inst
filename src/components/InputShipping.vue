@@ -49,6 +49,7 @@ export default {
   padding: 4px 16px;
   border-radius: 8px;
   transition: all 0.25s ease-out;
+  cursor: pointer;
 }
 
 .intput-shipping__select.active {
