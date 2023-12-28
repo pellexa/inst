@@ -1,4 +1,6 @@
 <script>
+import { nextTick } from 'vue'
+
 export default {
   name: 'InputPhone',
   props: {
@@ -29,7 +31,60 @@ export default {
   },
   methods: {
     handlerInput(e) {
-      this.$emit('update:modelValue', e.target.value)
+      let value = e.target.value
+      let valueLength = value.length
+      let prevValue = this.modelValue
+      let currentSymbol = value.slice(-1)
+
+      this.$emit('update:modelValue', value)
+
+      nextTick(() => {
+        if (currentSymbol.match(/\D/g)) {
+          this.$emit('update:modelValue', value.replace(/^(.*)\D/g, '$1'))
+          return
+        }
+
+        if (valueLength === 1) {
+          this.$emit('update:modelValue', `+${currentSymbol}`)
+        }
+
+        if (valueLength === 3) {
+          this.$emit('update:modelValue', value.replace(/^(\+\d)(\d)/, '$1($2'))
+        }
+
+        if (valueLength === 7) {
+          this.$emit('update:modelValue', value.replace(/^(.{6})/, '$1)'))
+        }
+
+        if (valueLength === 11) {
+          this.$emit('update:modelValue', value.replace(/^(.{10})(.)/, '$1-$2'))
+        }
+
+        if (valueLength === 14) {
+          this.$emit('update:modelValue', value.replace(/^(.{13})(.)/, '$1-$2'))
+        }
+
+        if (valueLength === 11 && !prevValue) {
+          this.$emit(
+            'update:modelValue',
+            value.replace(/^(.)(.{3})(.{3})(.{2})(.{2})/, '+$1($2)$3-$4-$5'),
+          )
+        }
+
+        if (valueLength >= 16) {
+          this.$emit(
+            'update:modelValue',
+            value.replace(
+              /^.*(\d).*(\d).*(\d).*(\d).*(\d).*(\d).*(\d).*(\d).*(\d).*(\d).*(\d)/,
+              '+$1($2$3$4)$5$6$7-$8$9-$10$11',
+            ),
+          )
+        }
+
+        if (valueLength > 16) {
+          this.$emit('update:modelValue', prevValue)
+        }
+      })
     },
   },
   emits: ['update:modelValue'],
