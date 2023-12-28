@@ -20,26 +20,21 @@ export default {
 </script>
 
 <template>
-  <div class="cart">
-    <template v-if="products.length">
-      <div v-for="item in products" :key="item.id" class="cart__item">
-        <CartItem
-          :id="item.id"
-          :image="item.image"
-          :title="item.title"
-          :price="item.price * item.count"
-          :quantity="item.quantity"
-          :count="item.count"
-        />
-      </div>
-      <TheCheckout />
-    </template>
-    <template v-else>
-      <div class="cart__empty">
-        <TheEmpty>В корзине пока пусто</TheEmpty>
-      </div>
-    </template>
+  <div v-if="products.length" class="cart">
+    <div v-for="item in products" :key="item.id" class="cart__item">
+      <CartItem
+        :id="item.id"
+        :image="item.image"
+        :title="item.title"
+        :price="item.price * item.count"
+        :quantity="item.quantity"
+        :count="item.count"
+      />
+    </div>
+
+    <TheCheckout />
   </div>
+  <TheEmpty v-else>В корзине пока пусто</TheEmpty>
 </template>
 
 <style>
