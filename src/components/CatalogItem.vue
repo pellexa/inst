@@ -1,16 +1,14 @@
 <script>
 import ThePrice from '@/components/ThePrice.vue'
 import FavoriteButton from '@/components/FavoriteButton.vue'
-import IconButton from '@/components/IconButton.vue'
-import IconCart from '@/components/icons/IconCart.vue'
+import CartButton from '@/components/CartButton.vue'
 
 export default {
   name: 'CatalogItem',
   components: {
     ThePrice,
     FavoriteButton,
-    IconButton,
-    IconCart,
+    CartButton,
   },
   props: {
     id: {
@@ -29,6 +27,10 @@ export default {
       type: Number,
       default: 0,
     },
+    quantity: {
+      type: Number,
+      default: 0,
+    },
   },
 }
 </script>
@@ -44,9 +46,13 @@ export default {
     </div>
     <div class="catalog-item__actions">
       <FavoriteButton :id="id" :image="image" :title="title" />
-      <IconButton color="primary">
-        <IconCart />
-      </IconButton>
+      <CartButton
+        :id="id"
+        :image="image"
+        :title="title"
+        :price="price"
+        :quantity="quantity"
+      />
     </div>
   </div>
 </template>

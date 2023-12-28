@@ -23,6 +23,7 @@ export default {
         :image="item.image"
         :title="item.title"
         :price="item.price"
+        :quantity="item.quantity"
       />
     </div>
   </div>

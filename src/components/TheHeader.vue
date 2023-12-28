@@ -10,6 +10,7 @@ export default {
   computed: {
     ...mapGetters({
       favoritesCount: 'favorites/getCount',
+      getCartProducts: 'cart/getProducts',
     }),
   },
 }
@@ -21,7 +22,9 @@ export default {
     <HeaderLink to="/favorites" exact align="right" :count="favoritesCount"
       >Избранное</HeaderLink
     >
-    <HeaderLink to="/cart" exact :count="13">Корзина</HeaderLink>
+    <HeaderLink to="/cart" exact :count="getCartProducts.length"
+      >Корзина</HeaderLink
+    >
   </header>
 </template>
 
