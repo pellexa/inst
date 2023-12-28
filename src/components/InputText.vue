@@ -1,4 +1,6 @@
 <script>
+import { validate } from '@/utils/validate'
+
 export default {
   name: 'InputText',
   props: {
@@ -18,6 +20,9 @@ export default {
       type: String,
       default: '',
     },
+    field: {
+      type: Object,
+    },
     error: {
       type: String,
       default: '',
@@ -26,6 +31,7 @@ export default {
   methods: {
     handlerInput(event) {
       this.$emit('update:modelValue', event.target.value)
+      validate({ [this.name]: this.field })
     },
   },
   emits: ['update:modelValue'],

@@ -5,6 +5,7 @@ import ThePrice from '@/components/ThePrice.vue'
 import InputText from '@/components/InputText.vue'
 import InputPhone from '@/components/InputPhone.vue'
 import InputShipping from '@/components/InputShipping.vue'
+import { validate } from '@/utils/validate'
 
 export default {
   name: 'TheCheckoutForm',
@@ -17,9 +18,22 @@ export default {
   },
   data() {
     return {
-      name: { value: '', validateError: '' },
-      phone: { value: '', validateError: '' },
-      shipping: { value: 'delivery', validateError: '' },
+      form: {
+        name: {
+          value: '',
+          validation: { isValid: true, rules: ['require'] },
+          validateError: '',
+        },
+        phone: {
+          value: '',
+          validation: { isValid: true, rules: ['require', 'phone'] },
+          validateError: '',
+        },
+        shipping: {
+          value: 'delivery',
+          validateError: '',
+        },
+      },
     }
   },
   computed: {
@@ -52,14 +66,13 @@ export default {
     },
 
     submit() {
+      if (!validate(this.form)) {
+        return
+      }
+
       const products = [...this.getProducts]
 
-      console.log(
-        this.name.value,
-        this.phone.value,
-        this.shipping.value,
-        products,
-      )
+      console.log(this.form, products)
 
       this.setPreview(false)
       this.clearCart()
@@ -77,22 +90,24 @@ export default {
       </p>
       <form class="checkout-form__from">
         <InputText
-          v-model="name.value"
+          v-model="form.name.value"
           id="name"
           name="name"
           type="text"
           placeholder="name*"
-          :error="name.validateError"
+          :field="form.name"
+          :error="form.name.validateError"
         />
         <InputPhone
-          v-model="phone.value"
+          v-model="form.phone.value"
           id="phone"
           name="phone"
           type="text"
           placeholder="телефон*"
-          :error="phone.validateError"
+          :field="form.phone"
+          :error="form.phone.validateError"
         />
-        <InputShipping v-model="shipping.value" />
+        <InputShipping v-model="form.shipping.value" />
         <CheckoutButton class="checkout-form__button" @click.prevent="submit" />
       </form>
     </div>

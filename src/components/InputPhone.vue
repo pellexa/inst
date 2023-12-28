@@ -1,5 +1,6 @@
 <script>
 import { nextTick } from 'vue'
+import { validate } from '@/utils/validate'
 
 export default {
   name: 'InputPhone',
@@ -23,6 +24,9 @@ export default {
     placeholder: {
       type: String,
       default: '',
+    },
+    field: {
+      type: Object,
     },
     error: {
       type: String,
@@ -84,6 +88,8 @@ export default {
         if (valueLength > 16) {
           this.$emit('update:modelValue', prevValue)
         }
+
+        validate({ [this.name]: this.field })
       })
     },
   },
